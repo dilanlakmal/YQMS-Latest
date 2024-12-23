@@ -171,14 +171,14 @@ function Inspection({
   return (
     <div className="min-h-screen bg-gray-50 pt-16">
       <div className="inspection-content">
-        <div className="fixed top-16 left-0 right-0 bg-white shadow-md z-40">
-          <div className="max-w-7xl mx-auto px-4 py-2">
+        <div className="fixed top-16 left-0 right-0 bg-white z-40">
+          <div className="max-w-7xl mx-auto px-4 pt-2 pb-0">
             <Header inspectionData={savedState?.inspectionData} />
           </div>
         </div>
 
         <div className="fixed top-32 left-0 right-0 bg-white shadow-md z-20">
-          <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+          <div className="max-w-7xl mx-auto px-4 pt-2 pb-1 flex items-center justify-between">
             <div className="flex items-center space-x-4">
               <ViewToggle
                 view={view}
