@@ -1,4 +1,5 @@
 export const FACTORIES = [
+  "YM",
   "CJ2",
   "Combo H/Some",
   "Da Cheng",
@@ -18,7 +19,7 @@ export const FACTORIES = [
   "KFINE",
   "SYD",
   "Hong Cheng",
-  "Blue Vista"
+  "Blue Vista",
 ];
 
 export const STYLE_CODES = [
@@ -33,10 +34,10 @@ export const STYLE_CODES = [
   { code: "PTCOM", customer: "Costco" },
   { code: "PTRT", customer: "Reitmans" },
   { code: "PTAF", customer: "A&F" },
-  { code: "PTNTA", customer: "" }
+  { code: "PTNTA", customer: "" },
 ];
 
 export const getCustomerByStyleCode = (styleCode) => {
-  const style = STYLE_CODES.find(s => s.code === styleCode);
-  return style ? style.customer : '';
+  const style = STYLE_CODES.find((s) => s.code === styleCode);
+  return style ? style.customer : "";
 };

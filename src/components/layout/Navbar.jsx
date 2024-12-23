@@ -1,6 +1,6 @@
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Menu } from '@headlessui/react';
-import { FaUser } from 'react-icons/fa';
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Menu } from "@headlessui/react";
+import { FaUser } from "react-icons/fa";
 
 function Navbar({ onLogout }) {
   const navigate = useNavigate();
@@ -8,7 +8,7 @@ function Navbar({ onLogout }) {
 
   const handleLogout = () => {
     onLogout();
-    navigate('/');
+    navigate("/");
   };
 
   return (
@@ -16,52 +16,52 @@ function Navbar({ onLogout }) {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between h-16">
           <div className="flex space-x-8">
-            <Link 
-              to="/home" 
+            <Link
+              to="/home"
               className={`inline-flex items-center px-1 pt-1 ${
-                location.pathname === '/home' 
-                  ? 'text-indigo-600 border-b-2 border-indigo-600' 
-                  : 'text-gray-900 hover:text-indigo-600'
+                location.pathname === "/home"
+                  ? "text-indigo-600 border-b-2 border-indigo-600"
+                  : "text-gray-900 hover:text-indigo-600"
               }`}
             >
               Home
             </Link>
-            <Link 
-              to="/details" 
+            <Link
+              to="/details"
               className={`inline-flex items-center px-1 pt-1 ${
-                location.pathname === '/details' 
-                  ? 'text-indigo-600 border-b-2 border-indigo-600' 
-                  : 'text-gray-900 hover:text-indigo-600'
+                location.pathname === "/details"
+                  ? "text-indigo-600 border-b-2 border-indigo-600"
+                  : "text-gray-900 hover:text-indigo-600"
               }`}
             >
               Details
             </Link>
-            <Link 
-              to="/inspection" 
+            <Link
+              to="/inspection"
               className={`inline-flex items-center px-1 pt-1 ${
-                location.pathname === '/inspection' 
-                  ? 'text-indigo-600 border-b-2 border-indigo-600' 
-                  : 'text-gray-900 hover:text-indigo-600'
+                location.pathname === "/inspection"
+                  ? "text-indigo-600 border-b-2 border-indigo-600"
+                  : "text-gray-900 hover:text-indigo-600"
               }`}
             >
               Inspection
             </Link>
-            <Link 
-              to="/return" 
+            <Link
+              to="/return"
               className={`inline-flex items-center px-1 pt-1 ${
-                location.pathname === '/return' 
-                  ? 'text-indigo-600 border-b-2 border-indigo-600' 
-                  : 'text-gray-900 hover:text-indigo-600'
+                location.pathname === "/return"
+                  ? "text-indigo-600 border-b-2 border-indigo-600"
+                  : "text-gray-900 hover:text-indigo-600"
               }`}
             >
               Return
             </Link>
-            <Link 
-              to="/logs" 
+            <Link
+              to="/logs"
               className={`inline-flex items-center px-1 pt-1 ${
-                location.pathname === '/logs' 
-                  ? 'text-indigo-600 border-b-2 border-indigo-600' 
-                  : 'text-gray-900 hover:text-indigo-600'
+                location.pathname === "/logs"
+                  ? "text-indigo-600 border-b-2 border-indigo-600"
+                  : "text-gray-900 hover:text-indigo-600"
               }`}
             >
               Logs
@@ -77,9 +77,9 @@ function Navbar({ onLogout }) {
                 <Menu.Item>
                   {({ active }) => (
                     <button
-                      onClick={() => navigate('/profile')}
+                      onClick={() => navigate("/profile")}
                       className={`${
-                        active ? 'bg-gray-100' : ''
+                        active ? "bg-gray-100" : ""
                       } block px-4 py-2 text-sm text-gray-700 w-full text-left`}
                     >
                       Profile
@@ -91,7 +91,7 @@ function Navbar({ onLogout }) {
                     <button
                       onClick={handleLogout}
                       className={`${
-                        active ? 'bg-gray-100' : ''
+                        active ? "bg-gray-100" : ""
                       } block px-4 py-2 text-sm text-gray-700 w-full text-left`}
                     >
                       Logout
