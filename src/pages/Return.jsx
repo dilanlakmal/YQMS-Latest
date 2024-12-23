@@ -1,35 +1,45 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import Header from '../components/inspection/Header';
-import ViewToggle from '../components/inspection/ViewToggle';
-import DefectsList from '../components/inspection/DefectsList';
-import Summary from '../components/inspection/Summary';
-import { defectsList } from '../constants/defects';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Header from "../components/inspection/Header";
+import ViewToggle from "../components/inspection/ViewToggle";
+import DefectsList from "../components/inspection/DefectsList";
+import Summary from "../components/inspection/Summary";
+import { defectsList } from "../constants/defects";
 
-function Return({ 
-  savedState, 
-  onStateChange, 
+function Return({
+  savedState,
+  onStateChange,
   onLogEntry,
   timer,
   isPlaying,
-  inspectionState 
+  inspectionState,
 }) {
   const navigate = useNavigate();
-  const [view, setView] = useState('list');
-  const [language, setLanguage] = useState('english');
-  const [returnDefects, setReturnDefects] = useState(savedState?.returnDefects || {});
+  const [view, setView] = useState("list");
+  const [language, setLanguage] = useState("english");
+  const [returnDefects, setReturnDefects] = useState(
+    savedState?.returnDefects || {}
+  );
   const [currentDefectCount, setCurrentDefectCount] = useState({});
-  const [checkedQuantity, setCheckedQuantity] = useState(inspectionState?.checkedQuantity || 0);
-  const [goodOutput, setGoodOutput] = useState(inspectionState?.goodOutput || 0);
-  const [defectPieces, setDefectPieces] = useState(inspectionState?.defectPieces || 0);
-  const [returnDefectQty, setReturnDefectQty] = useState(savedState?.returnDefectQty || 0);
+  const [checkedQuantity, setCheckedQuantity] = useState(
+    inspectionState?.checkedQuantity || 0
+  );
+  const [goodOutput, setGoodOutput] = useState(
+    inspectionState?.goodOutput || 0
+  );
+  const [defectPieces, setDefectPieces] = useState(
+    inspectionState?.defectPieces || 0
+  );
+  const [returnDefectQty, setReturnDefectQty] = useState(
+    savedState?.returnDefectQty || 0
+  );
   const [hasDefectSelected, setHasDefectSelected] = useState(false);
 
   const isReturnComplete = goodOutput >= checkedQuantity;
 
   useEffect(() => {
     if (!savedState?.inspectionData) {
-      navigate('/details');
+      navigate("/details");
     }
   }, [savedState, navigate]);
 
@@ -51,47 +61,63 @@ function Return({
       returnDefectQty,
       language,
       view,
-      hasDefectSelected
+      hasDefectSelected,
     });
   }, [
-    returnDefects, currentDefectCount, goodOutput,
-    returnDefectQty, language, view, hasDefectSelected
+    returnDefects,
+    currentDefectCount,
+    goodOutput,
+    returnDefectQty,
+    language,
+    view,
+    hasDefectSelected,
   ]);
 
   const formatTime = (seconds) => {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
-    return `${String(hrs).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    return `${String(hrs).padStart(2, "0")}:${String(mins).padStart(
+      2,
+      "0"
+    )}:${String(secs).padStart(2, "0")}`;
   };
 
   const handlePassReturn = () => {
     if (!isPlaying || isReturnComplete || hasDefectSelected) return;
-    setGoodOutput(prev => Math.min(prev + 1, checkedQuantity));
-    
+    setGoodOutput((prev) => Math.min(prev + 1, checkedQuantity));
+
     onLogEntry?.({
-      type: 'pass-return',
-      status: 'Pass Return',
+      type: "pass-return",
+      status: "Pass Return",
       timestamp: new Date().getTime(),
-      defectDetails: []
+      defectDetails: [],
     });
 
     setCurrentDefectCount({});
   };
 
   const handleRejectReturn = () => {
-    if (!isPlaying || isReturnComplete || !Object.values(currentDefectCount).some(count => count > 0)) return;
-    
+    if (
+      !isPlaying ||
+      isReturnComplete ||
+      !Object.values(currentDefectCount).some((count) => count > 0)
+    )
+      return;
+
     const currentTime = new Date().getTime();
-    const totalNewDefects = Object.values(currentDefectCount).reduce((sum, count) => sum + count, 0);
-    setReturnDefectQty(prev => prev + totalNewDefects);
+    const totalNewDefects = Object.values(currentDefectCount).reduce(
+      (sum, count) => sum + count,
+      0
+    );
+    setReturnDefectQty((prev) => prev + totalNewDefects);
 
     // Update return-specific defects
     Object.entries(currentDefectCount).forEach(([index, count]) => {
       if (count > 0) {
-        setReturnDefects(prev => ({
+        setReturnDefects((prev) => ({
           ...prev,
-          [index]: (prev[index] || 0) + count
+          [index]: (prev[index] || 0) + count,
         }));
       }
     });
@@ -101,14 +127,14 @@ function Return({
       .map(([index, count]) => ({
         name: defectsList[language][index],
         count,
-        timestamp: currentTime
+        timestamp: currentTime,
       }));
 
     onLogEntry?.({
-      type: 'reject-return',
-      status: 'Reject Return',
+      type: "reject-return",
+      status: "Reject Return",
       defectDetails: currentDefects,
-      timestamp: currentTime
+      timestamp: currentTime,
     });
 
     setCurrentDefectCount({});
@@ -116,23 +142,21 @@ function Return({
 
   return (
     <div className="min-h-screen bg-gray-50 pt-16">
-      <div className="fixed top-16 left-0 right-0 bg-white shadow-md z-40">
-        <div className="max-w-7xl mx-auto px-4 py-2">
+      <div className="fixed top-16 left-0 right-0 bg-white z-40">
+        <div className="max-w-7xl mx-auto px-4 pt-2 pb-0">
           <Header inspectionData={savedState?.inspectionData} />
         </div>
       </div>
 
-      <div className="fixed top-32 left-0 right-0 bg-white shadow-md z-30">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+      <div className="fixed top-28 left-0 right-0 bg-white shadow-md z-30">
+        <div className="max-w-7xl mx-auto px-4 pt-2 pb-1 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <ViewToggle
               view={view}
               onViewChange={setView}
               onLanguageChange={setLanguage}
             />
-            <div className="text-xl font-mono">
-              {formatTime(timer)}
-            </div>
+            <div className="text-xl font-mono">{formatTime(timer)}</div>
           </div>
         </div>
       </div>
@@ -144,9 +168,9 @@ function Return({
               onClick={handlePassReturn}
               disabled={!isPlaying || isReturnComplete || hasDefectSelected}
               className={`w-full py-2 rounded font-medium ${
-                isPlaying && !isReturnComplete && !hasDefectSelected 
-                  ? 'bg-green-500 text-white' 
-                  : 'bg-gray-300 text-gray-600'
+                isPlaying && !isReturnComplete && !hasDefectSelected
+                  ? "bg-green-500 text-white"
+                  : "bg-gray-300 text-gray-600"
               }`}
             >
               Pass Return
@@ -159,10 +183,10 @@ function Return({
               defects={returnDefects}
               currentDefectCount={currentDefectCount}
               onDefectUpdate={(index, value) => {
-                setReturnDefects(prev => ({ ...prev, [index]: value }));
+                setReturnDefects((prev) => ({ ...prev, [index]: value }));
               }}
               onCurrentDefectUpdate={(index, value) => {
-                setCurrentDefectCount(prev => ({ ...prev, [index]: value }));
+                setCurrentDefectCount((prev) => ({ ...prev, [index]: value }));
               }}
               onLogEntry={onLogEntry}
               isPlaying={isPlaying && !isReturnComplete}
@@ -173,11 +197,17 @@ function Return({
           <div className="col-span-2">
             <button
               onClick={handleRejectReturn}
-              disabled={!isPlaying || isReturnComplete || !Object.values(currentDefectCount).some(count => count > 0)}
+              disabled={
+                !isPlaying ||
+                isReturnComplete ||
+                !Object.values(currentDefectCount).some((count) => count > 0)
+              }
               className={`w-full py-2 rounded font-medium ${
-                isPlaying && !isReturnComplete && Object.values(currentDefectCount).some(count => count > 0)
-                  ? 'bg-red-500 text-white'
-                  : 'bg-gray-300 text-gray-600'
+                isPlaying &&
+                !isReturnComplete &&
+                Object.values(currentDefectCount).some((count) => count > 0)
+                  ? "bg-red-500 text-white"
+                  : "bg-gray-300 text-gray-600"
               }`}
             >
               Reject Return

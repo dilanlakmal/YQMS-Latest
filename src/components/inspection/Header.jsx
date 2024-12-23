@@ -24,7 +24,7 @@ function Header({ inspectionData, editable = false }) {
   const data = editable ? editedData : inspectionData;
 
   return (
-    <div className="overflow-x-auto bg-white p-2 rounded-lg shadow mb-4">
+    <div className="overflow-x-auto bg-white p-2 rounded-lg shadow mb-2">
       <div className="flex space-x-4 text-sm">
         {Object.entries(data).map(([key, value]) => (
           <div key={key}>
