@@ -1,42 +1,42 @@
-import { Dialog } from '@headlessui/react';
-import PreviewHeader from './preview/PreviewHeader';
-import PreviewDefects from './preview/PreviewDefects';
-import PreviewSummary from './preview/PreviewSummary';
+import { Dialog } from "@headlessui/react";
+import PreviewHeader from "./preview/PreviewHeader";
+import PreviewDefects from "./preview/PreviewDefects";
+import PreviewSummary from "./preview/PreviewSummary";
 
-function PreviewModal({ 
-  isOpen, 
-  onClose, 
-  inspectionData, 
-  defects, 
-  checkedQuantity, 
+function PreviewModal({
+  isOpen,
+  onClose,
+  inspectionData,
+  defects,
+  checkedQuantity,
   goodOutput,
   defectPieces,
-  language 
+  language,
 }) {
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-      
+
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <Dialog.Panel className="w-full max-w-4xl bg-white rounded-lg shadow-xl max-h-[90vh] flex flex-col">
           <div className="p-6 flex-shrink-0">
             <Dialog.Title className="text-2xl font-bold mb-4">
-              Inspection Report Preview
+              QC Inspection Report
             </Dialog.Title>
             <PreviewHeader inspectionData={inspectionData} />
           </div>
 
           <div className="flex-1 overflow-auto px-6">
-            <PreviewDefects 
-              defects={defects} 
-              language={language} 
+            <PreviewDefects
+              defects={defects}
+              language={language}
               checkedQuantity={checkedQuantity}
             />
           </div>
 
           <div className="p-6 flex-shrink-0">
-            <PreviewSummary 
-              defects={defects} 
+            <PreviewSummary
+              defects={defects}
               checkedQuantity={checkedQuantity}
               goodOutput={goodOutput}
               defectPieces={defectPieces}

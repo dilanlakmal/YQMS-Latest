@@ -8,6 +8,8 @@ import Summary from "../components/inspection/Summary";
 import PlayPauseButton from "../components/inspection/PlayPauseButton";
 import PreviewModal from "../components/inspection/PreviewModal";
 import { defectsList } from "../constants/defects";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faDownload } from "@fortawesome/free-solid-svg-icons";
 
 function Inspection({
   savedState,
@@ -195,15 +197,15 @@ function Inspection({
             <div className="flex items-center space-x-4">
               <button
                 onClick={() => setShowPreview(true)}
-                className="px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                className="px-4 py-2 bg-indigo-700 text-white rounded hover:bg-indigo-400 flex items-center justify-center"
               >
-                Preview
+                <FontAwesomeIcon icon={faEye} size="lg" />
               </button>
               <button
                 onClick={handleDownloadPDF}
-                className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-500 flex items-center justify-center"
               >
-                Download PDF
+                <FontAwesomeIcon icon={faDownload} size="lg" />
               </button>
 
               <button
