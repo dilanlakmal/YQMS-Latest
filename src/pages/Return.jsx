@@ -161,13 +161,13 @@ function Return({
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 pt-40 pb-32">
+      <div className="max-w-7xl mx-auto px-4 pt-14 pb-52">
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-2">
+          <div className="col-span-2 flex items-center justify-center">
             <button
               onClick={handlePassReturn}
               disabled={!isPlaying || isReturnComplete || hasDefectSelected}
-              className={`w-full py-2 rounded font-medium ${
+              className={`w-full h-full py-0 rounded font-medium ${
                 isPlaying && !isReturnComplete && !hasDefectSelected
                   ? "bg-green-500 text-white"
                   : "bg-gray-300 text-gray-600"
@@ -194,7 +194,7 @@ function Return({
               isReturnView={true}
             />
           </div>
-          <div className="col-span-2">
+          <div className="col-span-2 flex items-center justify-center">
             <button
               onClick={handleRejectReturn}
               disabled={
@@ -202,7 +202,7 @@ function Return({
                 isReturnComplete ||
                 !Object.values(currentDefectCount).some((count) => count > 0)
               }
-              className={`w-full py-2 rounded font-medium ${
+              className={`w-full h-full py-0 rounded font-medium ${
                 isPlaying &&
                 !isReturnComplete &&
                 Object.values(currentDefectCount).some((count) => count > 0)
